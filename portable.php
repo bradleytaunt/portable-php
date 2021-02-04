@@ -4,8 +4,12 @@
 
 $site_title = 'This is the website title';
 $site_desc = 'This is the website description';
-$site_style = 'style.css';
+// $site_info takes all forms of HTML. Leave blank if you just want blog posts on the homepage
+$site_info = '<p>This is the website information that is displayed on the homepage.</p>';
 $site_icon = 'img/icon.png';
+$toc = '';
+$posts = '';
+$about = '';
 
 include('dependencies/Parsedown.php');
 include('dependencies/ParsedownExtra.php');
@@ -69,27 +73,24 @@ foreach ($files as $file) {
   <meta property="og:description" content="<?php echo $site_desc; ?>">
   <!-- other -->
   <meta name="twitter:card" content="summary">
-  <style>
-    <?php echo file_get_contents($site_style); ?>
-  </style>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
   <header>
     <h1>
-      <a href="#top"><?php echo $site_title; ?></a>
+      <a href="#home"><?php echo $site_title; ?></a>
     </h1>
   </header>
   <main>
-    <section tabindex="0" id="top">
-      <nav>
-        <ul class="toc">
-          <?php echo $toc; ?>
-        </ul>
-      </nav>
-    </section>
     <?php echo $about; ?>
     <?php echo $posts; ?>
     <section tabindex="0" role="document" aria-label="Home" id="home">
+      <?php 
+        if ($site_info != '') {
+          echo $site_info;
+          echo '<hr>';
+        }
+      ?>
       <nav>
         <ul class="toc">
           <?php echo $toc; ?>
